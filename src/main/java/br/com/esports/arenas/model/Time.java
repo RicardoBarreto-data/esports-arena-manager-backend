@@ -9,27 +9,18 @@ public class Time {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id_time")
+    private Integer id;
 
-    @Column(nullable = false)
+    @Column(name = "nome_time", nullable = false, length = 100)
     private String nome;
 
-    @Column(length = 10)
-    private String tag;
+    @Column(name = "historico_competicoes", columnDefinition = "LONGTEXT", nullable = false)
+    private String historicoCompeticoes;
 
-    @Column(name = "data_criacao")
-    private LocalDate dataCriacao;
+    public Time() {}
 
-    @Column(nullable = false)
-    private Boolean ativo = true;
-
-    // Construtor vazio obrigatório
-    public Time() {
-    }
-
-    // Getters e Setters
-
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -41,27 +32,11 @@ public class Time {
         this.nome = nome;
     }
 
-    public String getTag() {
-        return tag;
+    public String getHistoricoCompeticoes() {
+        return historicoCompeticoes;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-
-    public LocalDate getDataCriacao() {
-        return dataCriacao;
-    }
-
-    public void setDataCriacao(LocalDate dataCriacao) {
-        this.dataCriacao = dataCriacao;
-    }
-
-    public Boolean getAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(Boolean ativo) {
-        this.ativo = ativo;
+    public void setHistoricoCompeticoes(String historicoCompeticoes) {
+        this.historicoCompeticoes = historicoCompeticoes;
     }
 }

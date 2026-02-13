@@ -40,7 +40,7 @@ public class TorneioController {
 
         return torneioService.buscarPorId(id)
                 .map(t -> {
-                    torneio.setIdTorneio(id);
+                    torneio.setId(id);
                     return ResponseEntity.ok(torneioService.salvar(torneio));
                 })
                 .orElse(ResponseEntity.notFound().build());

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/torneios")
+@RequestMapping("/api/torneios")
 public class TorneioController {
 
     private final TorneioService torneioService;

@@ -39,10 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-
-// ===============================
 // FUNÇÃO PARA LISTAR TORNEIOS
-// ===============================
 async function carregarTorneios() {
 
     try {
@@ -83,10 +80,7 @@ async function carregarTorneios() {
     }
 }
 
-
-// ===============================
 // FUNÇÃO PARA EXCLUIR
-// ===============================
 async function excluirTorneio(id) {
 
     if (!confirm("Deseja realmente excluir este torneio?")) {
@@ -110,10 +104,7 @@ async function excluirTorneio(id) {
     }
 }
 
-
-// ===============================
 // FORMATAR DATA (YYYY-MM-DD → DD/MM/YYYY)
-// ===============================
 function formatarData(data) {
     const partes = data.split("-");
     return ${partes[2]}/${partes[1]}/${partes[0]};

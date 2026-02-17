@@ -31,7 +31,7 @@ public class TimeService {
     public Time salvar(Time time) {
         return timeRepository.save(time);
     }
-
+    
     // Atualizar time existente
     public Time atualizar(Integer id, Time timeAtualizado) {
         Time time = buscarPorId(id);

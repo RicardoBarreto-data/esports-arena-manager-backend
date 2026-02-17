@@ -27,7 +27,7 @@ fetch("/api/me")
             
             // CORREÇÃO AQUI: Usando crases e seletor CSS correto
             ["torneios.html", "times.html", "partidas.html", "rankings.html"].forEach(link => {
-                const el = document.querySelector(`a[href="${link}"]`); 
+                const el = document.querySelector(a[href="${link}"]); 
                 if (el) el.style.display = "none";
             });
         }

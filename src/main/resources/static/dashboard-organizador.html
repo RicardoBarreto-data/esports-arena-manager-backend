@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Organizador | eSports Arena Manager</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="dashboard-body">
+
+<aside class="sidebar">
+    <h2 class="logo">Arena Manager</h2>
+
+    <nav class="menu">
+        <a href="dashboard-organizador.html" class="active">Início</a>
+        <a href="torneios.html">Torneios</a>
+        <a href="times.html">Times</a>
+        <a href="partidas.html">Partidas</a>
+        <a href="rankings.html">Rankings</a>
+        <a href="/logout">Sair</a>
+    </nav>
+</aside>
+
+<main class="dashboard-main">
+
+<header class="topbar">
+    <span>Painel do Organizador</span>
+</header>
+
+<!-- CARDS PRINCIPAIS -->
+<section class="dashboard-section">
+    <h2>Visão Geral</h2>
+
+    <section class="cards">
+
+        <div class="card">
+            <h3>Torneios Ativos</h3>
+            <p id="totalTorneios">0</p>
+        </div>
+
+        <div class="card">
+            <h3>Times Criados</h3>
+            <p id="totalTimes">0</p>
+        </div>
+
+        <div class="card">
+            <h3>Partidas Criadas</h3>
+            <p id="totalPartidas">0</p>
+        </div>
+
+    </section>
+</section>
+
+<!-- ÚLTIMOS TORNEIOS -->
+<section class="dashboard-section">
+    <h3>Últimos Torneios Criados</h3>
+
+    <div class="table-responsive">
+        <table class="dashboard-table">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Jogo</th>
+                    <th>Status</th>
+                    <th>Data de Início</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaTorneios">
+                <!-- Será preenchido via JavaScript futuramente -->
+                <tr>
+                    <td colspan="4" class="text-center text-muted">
+                        Nenhum torneio encontrado.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+</main>
+
+<!-- Futuro JS do dashboard -->
+<script src="/js/dashboard-organizador.js"></script>
+
+</body>
+</html>

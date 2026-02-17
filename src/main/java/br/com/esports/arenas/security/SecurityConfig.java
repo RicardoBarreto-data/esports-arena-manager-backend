@@ -3,7 +3,6 @@ package br.com.esports.arenas.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -11,32 +10,60 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http
-        .csrf(csrf -> csrf.disable()) // Desabilita para facilitar os testes locais
-        .authorizeHttpRequests(auth -> auth
-            // Libera explicitamente as pastas e arquivos de estilo
-            .requestMatchers("/login.html", "/css/**", "/js/**", "/style.css", "/vendor/**").permitAll()
-            .requestMatchers("/api/auth/**").permitAll() 
-            .anyRequest().authenticated() // Tudo o mais exige login
-        )
-        .formLogin(form -> form
-            .loginPage("/login.html")
-            .loginProcessingUrl("/login") // O 'action' do seu form de login deve ser /login
-            .defaultSuccessUrl("/dashboard.html", true) // O 'true' força o redirecionamento
-            .permitAll()
-        )
-        .logout(logout -> logout
-            .logoutUrl("/logout")
-            .logoutSuccessUrl("/login.html?logout")
-            .permitAll()
-        );
 
-    return http.build();
-}
+        http
+            .csrf(csrf -> csrf.disable())
 
-// Ignora a segurança para recursos estáticos
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-    return (web) -> web.ignoring().requestMatchers("/css/**", "/js/**", "/images/**", "/style.css");
-  }
+            .authorizeHttpRequests(auth -> auth
+                // Libera arquivos estáticos e login
+                .requestMatchers(
+                        "/login.html",
+                        "/css/**",
+                        "/js/**",
+                        "/images/**",
+                        "/vendor/**"
+                ).permitAll()
+
+                // Libera endpoints públicos (se houver)
+                .requestMatchers("/api/auth/**").permitAll()
+
+                // Proteção por role
+                .requestMatchers("/dashboard-admin.html")
+                    .hasRole("ADMINISTRADOR")
+
+                .requestMatchers("/dashboard-organizador.html")
+                    .hasRole("ORGANIZADOR")
+                    
+                .requestMatchers("/api/dashboard/organizador")
+                    .hasRole("ORGANIZADOR")
+
+                // Qualquer outra requisição precisa estar autenticada
+                .anyRequest().authenticated()
+            )
+
+            .formLogin(form -> form
+                .loginPage("/login.html")
+                .loginProcessingUrl("/login")
+                .successHandler((request, response, authentication) -> {
+
+                    boolean isAdmin = authentication.getAuthorities().stream()
+                            .anyMatch(a -> a.getAuthority().equals("ROLE_ADMINISTRADOR"));
+
+                    if (isAdmin) {
+                        response.sendRedirect("/dashboard-admin.html");
+                    } else {
+                        response.sendRedirect("/dashboard-organizador.html");
+                    }
+                })
+                .permitAll()
+            )
+
+            .logout(logout -> logout
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login.html?logout")
+                .permitAll()
+            );
+
+        return http.build();
+    }
 }

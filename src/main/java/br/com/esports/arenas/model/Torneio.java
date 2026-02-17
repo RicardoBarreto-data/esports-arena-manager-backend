@@ -14,6 +14,13 @@ public class Torneio {
     @Column(nullable = false)
     private String nome;
 
+    @Column(nullable = false)
+    private String jogo;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private StatusTorneio status;
+
     private String descricao;
 
     @Column(name = "data_inicio", nullable = false)
@@ -23,6 +30,8 @@ public class Torneio {
     private LocalDate dataFim;
 
     public Torneio() {}
+
+    // getters e setters
 
     public Integer getId() {
         return id;
@@ -38,6 +47,22 @@ public class Torneio {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getJogo() {
+        return jogo;
+    }
+
+    public void setJogo(String jogo) {
+        this.jogo = jogo;
+    }
+
+    public StatusTorneio getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusTorneio status) {
+        this.status = status;
     }
 
     public String getDescricao() {

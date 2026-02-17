@@ -1,6 +1,8 @@
 package br.com.esports.arenas.controller;
 
+import br.com.esports.arenas.model.Jogador;
 import br.com.esports.arenas.model.Torneio;
+import br.com.esports.arenas.repository.JogadorRepository;
 import br.com.esports.arenas.repository.PartidaRepository;
 import br.com.esports.arenas.repository.TimeRepository;
 import br.com.esports.arenas.repository.TorneioRepository;
@@ -18,15 +20,18 @@ public class DashboardController {
     private final TorneioRepository torneioRepository;
     private final TimeRepository timeRepository;
     private final PartidaRepository partidaRepository;
+    private final JogadorRepository JogadorRepository;
 
     public DashboardController(TorneioRepository torneioRepository,
-                               TimeRepository timeRepository,
-                               PartidaRepository partidaRepository) {
-        this.torneioRepository = torneioRepository;
-        this.timeRepository = timeRepository;
-        this.partidaRepository = partidaRepository;
-    }
-
+                           TimeRepository timeRepository,
+                           PartidaRepository partidaRepository,
+                           JogadorRepository jogadorRepository) {
+    this.torneioRepository = torneioRepository;
+    this.timeRepository = timeRepository;
+    this.partidaRepository = partidaRepository;
+    this.JogadorRepository = jogadorRepository;
+   }
+    
     @GetMapping("/organizador")
     public Map<String, Object> dashboardOrganizador() {
 
@@ -43,5 +48,21 @@ public class DashboardController {
 
         return dados;
     }
+    @GetMapping("/admin")
+    public Map<String, Object> dashboardAdmin() {
+
+    Map<String, Object> dados = new HashMap<>();
+
+    dados.put("totalTorneios", torneioRepository.count());
+    dados.put("totalTimes", timeRepository.count());
+    dados.put("totalJogadores", JogadorRepository.count());
+
+            List<Jogador> ultimosJogadores =
+            JogadorRepository.findTop5ByOrderByIdDesc();
+
+    dados.put("ultimosJogadores", ultimosJogadores);
+
+    return dados;
+}
 }
 

@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -21,31 +21,60 @@
 <main class="dashboard-main">
 
 <header class="topbar">
-    <span>Bem-vindo ao eSports Arena Manager</span>
+    <span>Painel Administrativo</span>
 </header>
 
+<!-- CARDS -->
 <section class="dashboard-section">
-    <h2>Painel Administrativo</h2>
+    <h2>Visão Geral do Sistema</h2>
 
     <section class="cards">
+
         <div class="card">
             <h3>Total de Torneios</h3>
-            <p>2</p>
+            <p id="totalTorneios">0</p>
         </div>
 
         <div class="card">
             <h3>Total de Times</h3>
-            <p>3</p>
+            <p id="totalTimes">0</p>
         </div>
 
         <div class="card">
             <h3>Jogadores Cadastrados</h3>
-            <p>3</p>
+            <p id="totalJogadores">0</p>
         </div>
+
     </section>
 </section>
 
+<!-- ÚLTIMOS JOGADORES -->
+<section class="dashboard-section">
+    <h3>Últimos Jogadores Cadastrados</h3>
+
+    <div class="table-responsive">
+        <table class="dashboard-table">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Perfil</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaJogadores">
+                <tr>
+                    <td colspan="3" class="text-center text-muted">
+                        Nenhum jogador encontrado.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
 </main>
+
+<script src="/js/dashboard-admin.js"></script>
 
 </body>
 </html>

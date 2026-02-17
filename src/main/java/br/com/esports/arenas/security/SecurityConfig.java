@@ -36,6 +36,9 @@ public class SecurityConfig {
                     
                 .requestMatchers("/api/dashboard/organizador")
                     .hasRole("ORGANIZADOR")
+                    
+                .requestMatchers("/api/dashboard/admin")
+                    .hasRole("ADMINISTRADOR")
 
                 // Qualquer outra requisição precisa estar autenticada
                 .anyRequest().authenticated()

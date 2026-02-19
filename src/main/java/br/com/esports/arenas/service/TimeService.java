@@ -49,4 +49,8 @@ public class TimeService {
         Time time = buscarPorId(id);
         timeRepository.delete(time);
     }
+    
+    public List<Time> listarPorTorneio(Integer torneioId) {
+    return timeRepository.findByTorneioId(torneioId);
+  }
 }

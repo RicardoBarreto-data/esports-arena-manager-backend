@@ -1,74 +1,60 @@
 package br.com.esports.arenas.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "partida")
 public class Partida {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private LocalDateTime data;
-
-    private String status;
-
-    @ManyToOne
-    @JoinColumn(name = "time_casa_id", nullable = false)
-    private Time timeCasa;
+    private LocalDateTime dataHora;
+    private String status; // "AGENDADA", "EM_ANDAMENTO", "CONCLUIDA"
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private Integer pontuacaoA; 
+    private Integer pontuacaoB; 
 
     @ManyToOne
-    @JoinColumn(name = "time_visitante_id", nullable = false)
-    private Time timeVisitante;
-
-    @ManyToOne
-    @JoinColumn(name = "torneio_id", nullable = false)
+    @JoinColumn(name = "id_torneio", nullable = false)
     private Torneio torneio;
+
+    @ManyToOne
+    @JoinColumn(name = "id_time_a", nullable = false)
+    private Time timeA;
+
+    @ManyToOne
+    @JoinColumn(name = "id_time_b", nullable = false)
+    private Time timeB;
 
     public Partida() {}
 
-    public Integer getId() {
-        return id;
-    }
+    // --- Getters e Setters Padronizados ---
 
-    public LocalDateTime getData() {
-        return data;
-    }
+    public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
 
-    public void setData(LocalDateTime data) {
-        this.data = data;
-    }
+    public LocalDateTime getDataHora() { return dataHora; }
+    public void setDataHora(LocalDateTime dataHora) { this.dataHora = dataHora; }
 
-    public String getStatus() {
-        return status;
-    }
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+    public Integer getPontuacaoA() { return pontuacaoA; }
+    public void setPontuacaoA(Integer pontuacaoA) { this.pontuacaoA = pontuacaoA; }
 
-    public Time getTimeCasa() {
-        return timeCasa;
-    }
+    public Integer getPontuacaoB() { return pontuacaoB; }
+    public void setPontuacaoB(Integer pontuacaoB) { this.pontuacaoB = pontuacaoB; }
 
-    public void setTimeCasa(Time timeCasa) {
-        this.timeCasa = timeCasa;
-    }
+    public Torneio getTorneio() { return torneio; }
+    public void setTorneio(Torneio torneio) { this.torneio = torneio; }
 
-    public Time getTimeVisitante() {
-        return timeVisitante;
-    }
+    public Time getTimeA() { return timeA; }
+    public void setTimeA(Time timeA) { this.timeA = timeA; }
 
-    public void setTimeVisitante(Time timeVisitante) {
-        this.timeVisitante = timeVisitante;
-    }
-
-    public Torneio getTorneio() {
-        return torneio;
-    }
-
-    public void setTorneio(Torneio torneio) {
-        this.torneio = torneio;
-    }
+    public Time getTimeB() { return timeB; }
+    public void setTimeB(Time timeB) { this.timeB = timeB; }
 }

@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map; // Não esqueça desse import!
 
 @RestController
 @RequestMapping("/api/partidas")
@@ -31,7 +32,24 @@ public class PartidaController {
 
     @PostMapping
     public Partida criar(@RequestBody Partida partida) {
+        // Garante o status inicial
+        if (partida.getStatus() == null) partida.setStatus("AGENDADA");
         return partidaService.salvar(partida);
+    }
+
+    // --- O MÉTODO QUE ESTAVA FALTANDO ABAIXO ---
+
+    @PutMapping("/{id}/finalizar")
+    public ResponseEntity<Partida> finalizar(@PathVariable Integer id, @RequestBody Map<String, Integer> scores) {
+        try {
+            Integer pA = scores.get("pontuacaoA");
+            Integer pB = scores.get("pontuacaoB");
+            
+            Partida partidaFinalizada = partidaService.finalizarPartida(id, pA, pB);
+            return ResponseEntity.ok(partidaFinalizada);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @DeleteMapping("/{id}")

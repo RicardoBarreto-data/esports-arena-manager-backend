@@ -1,15 +1,100 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Partidas | eSports Arena Manager</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="dashboard-body">
+
+    <aside class="sidebar">
+        <h2 class="logo">Arena Manager</h2>
+        <nav class="menu">
+            <a href="/dashboard-organizador">Início</a>
+            <a href="/torneios">Torneios</a>
+            <a href="/times">Times</a>
+            <a href="/partidas" class="active">Partidas</a>
+            <a href="/rankings">Rankings</a>
+            <a href="/logout">Sair</a>
+        </nav>
+    </aside>
+
+    <main class="dashboard-main container-fluid">
+
+        <header class="topbar mb-4">
+            <h3>Controle de Confrontos</h3>
+        </header>
+
+        <section class="dashboard-section mb-5">
+            <h4 class="mb-3">Agendar Nova Partida</h4>
+
+            <form id="formPartida" class="row g-3">
+
+                <div class="col-md-6">
+                    <label class="form-label">Torneio</label>
+                    <select id="selectTorneio" class="form-select" required>
+                        <option value="">Selecione o Torneio</option>
+                        </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Data e Hora</label>
+                    <input type="datetime-local" id="dataHora" class="form-control" required>
+                </div>
+
+                <div class="col-md-5">
+                    <label class="form-label">Time A (Casa)</label>
+                    <select id="timeA" class="form-select" required>
+                        <option value="">Selecione</option>
+                        </select>
+                </div>
+
+                <div class="col-md-2 d-flex align-items-end justify-content-center pb-2">
+                    <span class="h4">VS</span>
+                </div>
+
+                <div class="col-md-5">
+                    <label class="form-label">Time B (Visitante)</label>
+                    <select id="timeB" class="form-select" required>
+                        <option value="">Selecione</option>
+                        </select>
+                </div>
+
+                <div class="col-12 mt-4">
+                    <button type="submit" class="btn btn-primary w-100">
+                        Agendar Partida
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <section class="dashboard-section">
+            <h4 class="mb-3">Partidas do Torneio</h4>
+
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Data</th>
+                        <th>Confronto</th>
+                        <th>Status</th>
+                        <th>Resultado</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaPartidas">
+                    <tr>
+                        <td colspan="5" class="text-center text-muted">
+                            Nenhuma partida agendada.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+    <script src="/js/partidas.js"></script>
+
+</body>
 </html>

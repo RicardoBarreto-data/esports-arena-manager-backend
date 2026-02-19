@@ -16,9 +16,12 @@ public class TimeController {
         this.timeService = timeService;
     }
 
-    // Listar todos
+    // MÉTODO UNIFICADO: Agora ele decide se filtra ou se lista tudo
     @GetMapping
-    public List<Time> listarTodos() {
+    public List<Time> listar(@RequestParam(required = false) Integer torneioId) {
+        if (torneioId != null) {
+            return timeService.listarPorTorneio(torneioId);
+        }
         return timeService.listarTodos();
     }
 

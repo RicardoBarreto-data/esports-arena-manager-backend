@@ -31,4 +31,19 @@ public class TorneioService {
     public void deletar(Integer id) {
         torneioRepository.deleteById(id);
     }
+
+    public Torneio atualizar(Integer id, Torneio novo) {
+
+        Torneio existente = torneioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Torneio não encontrado"));
+
+        existente.setNome(novo.getNome());
+        existente.setJogo(novo.getJogo());
+        existente.setDescricao(novo.getDescricao());
+        existente.setStatus(novo.getStatus());
+        existente.setDataInicio(novo.getDataInicio());
+        existente.setDataFim(novo.getDataFim());
+
+        return torneioRepository.save(existente);
+    }
 }

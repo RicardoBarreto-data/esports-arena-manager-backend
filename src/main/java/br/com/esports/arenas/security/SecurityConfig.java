@@ -12,40 +12,41 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
+            //usando fetch/AJAX
             .csrf(csrf -> csrf.disable())
 
             .authorizeHttpRequests(auth -> auth
-                // Libera arquivos estáticos e login
+
+                // Recursos Públicos
                 .requestMatchers(
-                        "/login.html",
+                        "/login",
                         "/css/**",
                         "/js/**",
                         "/images/**",
                         "/vendor/**"
                 ).permitAll()
 
-                // Libera endpoints públicos (se houver)
-                .requestMatchers("/api/auth/**").permitAll()
+                // APIs REST
+                .requestMatchers("/api/**")
+                    .permitAll()
 
-                // Proteção por role
-                .requestMatchers("/dashboard-admin.html")
+                // Páginas Protegidas
+                .requestMatchers("/dashboard-admin")
                     .hasRole("ADMINISTRADOR")
 
-                .requestMatchers("/dashboard-organizador.html")
+                .requestMatchers("/dashboard-organizador")
                     .hasRole("ORGANIZADOR")
-                    
-                .requestMatchers("/api/dashboard/organizador")
-                    .hasRole("ORGANIZADOR")
-                    
-                .requestMatchers("/api/dashboard/admin")
-                    .hasRole("ADMINISTRADOR")
 
-                // Qualquer outra requisição precisa estar autenticada
+                .requestMatchers("/torneios", "/times", "/partidas", "/rankings")
+                    .hasAnyRole("ADMINISTRADOR", "ORGANIZADOR")
+                    
+                // Qualquer outra requisição
                 .anyRequest().authenticated()
             )
 
+            // Login
             .formLogin(form -> form
-                .loginPage("/login.html")
+                .loginPage("/login")
                 .loginProcessingUrl("/login")
                 .successHandler((request, response, authentication) -> {
 
@@ -53,17 +54,18 @@ public class SecurityConfig {
                             .anyMatch(a -> a.getAuthority().equals("ROLE_ADMINISTRADOR"));
 
                     if (isAdmin) {
-                        response.sendRedirect("/dashboard-admin.html");
+                        response.sendRedirect("/dashboard-admin");
                     } else {
-                        response.sendRedirect("/dashboard-organizador.html");
+                        response.sendRedirect("/dashboard-organizador");
                     }
                 })
                 .permitAll()
             )
 
+            // Logout
             .logout(logout -> logout
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/login.html?logout")
+                .logoutSuccessUrl("/login?logout")
                 .permitAll()
             );
 

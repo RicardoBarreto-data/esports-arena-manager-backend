@@ -34,13 +34,15 @@ public class TimeService {
     
     // Atualizar time existente
     public Time atualizar(Integer id, Time timeAtualizado) {
-        Time time = buscarPorId(id);
+    Time time = buscarPorId(id);
 
-        time.setNome(timeAtualizado.getNome());
-        time.setHistoricoCompeticoes(timeAtualizado.getHistoricoCompeticoes());
+    time.setNome(timeAtualizado.getNome());
+    time.setHistoricoCompeticoes(timeAtualizado.getHistoricoCompeticoes());
+    // Permite que o time seja transferido para outro torneio se necessário
+    time.setTorneio(timeAtualizado.getTorneio()); 
 
-        return timeRepository.save(time);
-    }
+    return timeRepository.save(time);
+}
 
     // Deletar time
     public void deletar(Integer id) {

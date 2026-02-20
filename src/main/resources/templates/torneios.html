@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Torneios | eSports Arena Manager</title>
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -12,7 +11,6 @@
 
 <aside class="sidebar">
     <h2 class="logo">Arena Manager</h2>
-
     <nav class="menu">
         <a href="/dashboard-organizador">Início</a>
         <a href="/torneios" class="active">Torneios</a>
@@ -29,11 +27,10 @@
     <h3>Gerenciamento de Torneios</h3>
 </header>
 
-<!-- LISTA -->
 <section class="dashboard-section mb-5">
     <h4 class="mb-3">Torneios Criados</h4>
 
-    <table class="table table-striped">
+    <table class="table table-striped align-middle">
         <thead class="table-dark">
         <tr>
             <th>Nome</th>
@@ -41,25 +38,25 @@
             <th>Status</th>
             <th>Data Início</th>
             <th>Data Fim</th>
-            <th>Ações</th>
+            <th class="text-center">Ações</th>
         </tr>
         </thead>
         <tbody id="tabelaTorneios">
         <tr>
             <td colspan="6" class="text-center text-muted">
-                Nenhum torneio encontrado.
+                Buscando torneios...
             </td>
         </tr>
         </tbody>
     </table>
 </section>
 
-<!-- FORM -->
 <section class="dashboard-section">
-    <h4 class="mb-3">Criar Novo Torneio</h4>
+    <h4 class="mb-3" id="tituloForm">Criar Novo Torneio</h4>
 
     <form id="formTorneio" class="row g-3">
-
+        
+        <input type="hidden" id="torneioId">
         <div class="col-md-6">
             <label class="form-label">Nome do Torneio</label>
             <input type="text" id="nome" class="form-control" required>
@@ -96,10 +93,10 @@
         </div>
 
         <div class="col-12 mt-3">
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" id="btnSalvar" class="btn btn-primary">
                 Criar Torneio
             </button>
-            <button type="reset" class="btn btn-secondary">
+            <button type="reset" class="btn btn-secondary" onclick="limparFormulario()">
                 Cancelar
             </button>
         </div>

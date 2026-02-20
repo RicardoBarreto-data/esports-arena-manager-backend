@@ -34,6 +34,6 @@ fetch("/api/me")
     })
     .catch((error) => {
         console.error("Erro na verificação de sessão:", error);
-        // COMENTE A LINHA ABAIXO PARA PARAR O PISCA-PISCA E VER O ERRO NO CONSOLE
+        // PARA PARAR O PISCA-PISCA E VER O ERRO NO CONSOLE
         // window.location.href = "/login.html"; 
     });

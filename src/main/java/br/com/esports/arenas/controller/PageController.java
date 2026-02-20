@@ -40,4 +40,9 @@ public class PageController {
     public String rankings() {
         return "rankings";
     }
+    
+    @GetMapping("/jogadores")
+    public String jogadores() {
+        return "jogadores";
+    }
 }
